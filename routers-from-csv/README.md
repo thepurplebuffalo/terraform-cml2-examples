@@ -75,19 +75,14 @@ Have a look at the output from the terraform plan step:
 The output generated from the [outputs.tf](./outputs.tf) file helps to show how the map is created:
 
     ...
-    + test_withcount = {
-        + r1 = {
-            + ios_version = "csr1000v-161101b"
-            + name        = "r1"
-            + num         = 1
-            + x           = "0"
-            + y           = "0"
-            }
-        + r2 = {
-            + ios_version = "csr1000v-170302"
-            + name        = "r2"
-            + num         = 2
-            + x           = "50"
-            + y           = "0"
-            }
+    test_withcount = {
+      "r1" = {
+          "ios_version" = "csr1000v-161101b"
+          "name" = "r1"
+          "num" = 1
+          "x" = "0"
+          "y" = "0"
+      }
+      "r2" = {
+          "ios_version" = "csr1000v-170302"
     ...
