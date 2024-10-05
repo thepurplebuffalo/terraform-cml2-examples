@@ -46,6 +46,48 @@ To run this example, you will need to have Terraform installed.  You will also
 need to have Cisco Modeling Lab accessible.
 
 The basic steps are:
+1. Clone this repository
+1. Review/fix all of the 'FIXME's
 1. ```terraform init```
-2. ```terraform apply -auto-approve``` (does the plan and apply in one step)
-3. ```terraform destroy -auto-approve``` (only once you are done)
+1. ```terraform apply -auto-approve``` (does the plan and apply in one step)
+1. Wait for the routers to come up
+1. Review the routers in CML
+1. ```terraform destroy -auto-approve``` (only once you are done)
+
+## Sample output
+
+Have a look at the output from the terraform plan step:
+
+
+    Terraform will perform the following actions:
+    ...
+    # cml2_node.router["R1"] will be created
+    + resource "cml2_node" "router" {
+        + boot_disk_size  = (known after apply)
+        + compute_id      = (known after apply)
+        + configuration   = <<-EOT
+                hostname MyNamePrefix-r1
+    ...
+
+1. Notice the ```MyNamePrefix-r1``` in the hostname.
+1. Notice the capitalized ```R1``` in the ```cml2_node.router["R1"]```.  This is a result of the ```upper(csvline.name)``` in the for loop.
+
+The output generated from the [outputs.tf](./outputs.tf) file helps to show how the map is created:
+
+    ...
+    + test_withcount = {
+        + r1 = {
+            + ios_version = "csr1000v-161101b"
+            + name        = "r1"
+            + num         = 1
+            + x           = "0"
+            + y           = "0"
+            }
+        + r2 = {
+            + ios_version = "csr1000v-170302"
+            + name        = "r2"
+            + num         = 2
+            + x           = "50"
+            + y           = "0"
+            }
+    ...
