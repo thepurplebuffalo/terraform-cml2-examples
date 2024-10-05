@@ -32,7 +32,7 @@ A sample base router config is provided in
 
 ## Variations
 
-The [output.tf](./output.tf) file contains a few different examples for the
+The [outputs.tf](./outputs.tf) file contains a few different examples for the
 '''for''' loop that could be used to create the routers.  The 'for' loop
 used in the [main.tf](./main.tf) file is a bit more complicated than the others,
 but it allows you to create a router with a specific hostname and IP address.
