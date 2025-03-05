@@ -4,7 +4,14 @@
 
 This example builds on [the previous](../02_all-ios-routers/README.md) example.
 
-Notable differences:
+Ever need to test a change or capability against a whole range of different
+IOS images?  This example shows how to do that.  It also includes the code to
+automate the creation pipeline using GitLab CI.
+
+A short Ansible script is included to show using Ansible to add some additional
+base configuration to the nodes.
+
+Notable differences from the last example:
 
 * Ansible is used to configure the routers.
 * A sample gitlab-ci pipeline is provided.
