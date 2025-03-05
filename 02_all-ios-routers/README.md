@@ -24,6 +24,11 @@ example.
 This sample makes use of more Terraform files.  Separate files are used to
 improve readability.
 
+This sample Terraform has a defficiency with how the ```cml2_lifecycle```
+is defined.  The switch may be turned on before all of the links to the switch
+are created.  This will cause the switch to non-deterministrically have the
+wrong number of ports.  This is addressed in the next example.
+
 ### On nodes and images
 
 CML allows you to create a node definition.  That node definition can use one

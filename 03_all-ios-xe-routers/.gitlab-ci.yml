@@ -1,0 +1,59 @@
+stages:
+  - terraform-create
+  - build-ansible-inventory
+  - ansible
+  - terraform-destroy
+
+terraform-create:
+  stage: terraform-create
+  tags:
+    - shell
+  script:
+  - terraform init
+  - terraform apply -auto-approve
+  artifacts:
+    when: always
+    access: 'developer'
+    paths:
+      - '*terraform*'
+    expire_in: "30 days"
+
+build-ansible-inventory:
+  stage: build-ansible-inventory
+  tags:
+  - shell
+  script:
+  - terraform output -json > terraform-output.json
+  - ./json-to-inventory.py terraform-output.json inventory.ini
+  artifacts:
+    when: always
+    access: 'developer'
+    paths:
+      - '*terraform*'
+      - 'inventory.ini'
+    expire_in: "30 days"
+
+ansible:
+  stage: ansible
+  tags:
+  - shell
+  script:
+  - ansible-playbook -i inventory.ini ansible/banner.yml
+  artifacts:
+    when: always
+    access: 'developer'
+    paths:
+      - '*terraform*'
+      - 'inventory.ini'
+    expire_in: "30 days"
+
+terraform-destroy:
+  stage: terraform-destroy
+  tags:
+    - shell
+  script:
+  - terraform destroy -auto-approve
+  dependencies:
+    - terraform-create
+  when: manual
+  manual_confirmation: "Are you sure you want to destroy the infrastructure?"
